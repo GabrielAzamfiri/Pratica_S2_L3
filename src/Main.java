@@ -1,5 +1,6 @@
 import com.github.javafaker.Faker;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -86,10 +87,10 @@ public class Main {
 
         System.out.println("****** Es_4 **********************************************************************************************");
 
-        List<Order> ordersTier2 = newOrders.stream().filter(order -> order.getCustomer().getTier() == 2).toList();
+        List<Order> ordersTier2 = newOrders.stream().filter(order -> order.getCustomer().getTier() == 2 && order.getOrderDate().isAfter(LocalDate.parse("2021-02-01")) && order.getOrderDate().isBefore(LocalDate.now().plusDays(1))).toList();
         List<List<Product>> listaProdottiTier2 = new ArrayList<>();
 
         ordersTier2.forEach(order -> listaProdottiTier2.add(order.getProducts()));
-        System.out.println(listaProdottiTier2);
+        System.out.println("Prodotto di Customer Tier 2 con ordini post 2021-02-01" + listaProdottiTier2);
     }
 }
