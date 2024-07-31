@@ -46,11 +46,12 @@ public class Main {
 
         System.out.println("****** Es_2 **********************************************************************************************");
 
+        //**************** CUSTOMERS ************************************************************************
+
         Customer DiegoCustomer = new Customer("Diego", 1);
         Customer EddyCustomer = new Customer("Eddy", 2);
         Customer AriannaCustomer = new Customer("Arianna", 3);
         Customer GabrielCustomer = new Customer("Gabriel", 2);
-
 
         Supplier<List<Product>> newProductSupplierList = () -> {
             List<Product> productList = new ArrayList<>();
@@ -61,6 +62,7 @@ public class Main {
             return productList;
         };
 
+        //**************** OrderS ************************************************************************
 
         Order orderDiego = new Order("In attesa", newProductSupplierList.get(), DiegoCustomer);
         Order orderEddy = new Order("In attesa", newProductSupplierList.get(), EddyCustomer);
@@ -83,7 +85,7 @@ public class Main {
         Stream<Product> boysCategory = randomProducts.stream().filter(product -> Objects.equals(product.getCategory(), "Boys"));
         List<Product> boysCategoryList = boysCategory.toList();
         System.out.println(boysCategoryList);
-        boysCategoryList.stream().map(product -> "Sconto Boys 10% : il nuovo prezzo del prodotto " + product.getName() + " è: " + product.getPrice() / 100 * 10 + " $").forEach(System.out::println);
+        boysCategoryList.stream().map(product -> "Sconto Boys 10% , il nuovo prezzo del prodotto " + product.getName() + " è: " + (product.getPrice() - (product.getPrice() * 0.9)) + " $").forEach(System.out::println);
 
         System.out.println("****** Es_4 **********************************************************************************************");
 
