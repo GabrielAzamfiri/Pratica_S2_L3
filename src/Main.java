@@ -44,9 +44,11 @@ public class Main {
 
 
         System.out.println("****** Es_2 **********************************************************************************************");
+
         Customer DiegoCustomer = new Customer("Diego", 1);
         Customer EddyCustomer = new Customer("Eddy", 2);
         Customer AriannaCustomer = new Customer("Arianna", 3);
+        Customer GabrielCustomer = new Customer("Gabriel", 2);
 
 
         Supplier<List<Product>> newProductSupplierList = () -> {
@@ -62,11 +64,13 @@ public class Main {
         Order orderDiego = new Order("In attesa", newProductSupplierList.get(), DiegoCustomer);
         Order orderEddy = new Order("In attesa", newProductSupplierList.get(), EddyCustomer);
         Order orderArianna = new Order("In attesa", newProductSupplierList.get(), AriannaCustomer);
+        Order orderGabriel = new Order("In attesa", newProductSupplierList.get(), GabrielCustomer);
 
         List<Order> newOrders = new ArrayList<>();
         newOrders.add(orderDiego);
         newOrders.add(orderEddy);
         newOrders.add(orderArianna);
+        newOrders.add(orderGabriel);
 
         List<Order> ordersBabyProducts = newOrders.stream().filter(order -> order.getProducts().stream().anyMatch(product -> "Baby".equals(product.getCategory()))).toList();
 
@@ -80,5 +84,12 @@ public class Main {
         System.out.println(boysCategoryList);
         boysCategoryList.stream().map(product -> "Sconto Boys 10% : il nuovo prezzo del prodotto " + product.getName() + " è: " + product.getPrice() / 100 * 10 + " $").forEach(System.out::println);
 
+        System.out.println("****** Es_4 **********************************************************************************************");
+
+        List<Order> ordersTier2 = newOrders.stream().filter(order -> order.getCustomer().getTier() == 2).toList();
+        List<List<Product>> listaProdottiTier2 = new ArrayList<>();
+
+        ordersTier2.forEach(order -> listaProdottiTier2.add(order.getProducts()));
+        System.out.println(listaProdottiTier2);
     }
 }
